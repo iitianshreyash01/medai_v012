@@ -18,7 +18,7 @@ app = Flask(__name__)
 # ✅ Correct CORS setup
 CORS(app, resources={r"/api/*": {
     "origins": [
-        "https://iitianshreyash01.github.io/lolf",  # GitHub Pages domain
+        "https://iitianshreyash01.github.io",  # GitHub Pages domain
         "http://localhost:5500",                    # local testing
         "http://127.0.0.1:5500"
     ],
@@ -27,14 +27,7 @@ CORS(app, resources={r"/api/*": {
 }}, supports_credentials=True)
 
 # ✅ Handle preflight OPTIONS request
-@app.before_request
-def handle_options():
-    if request.method == "OPTIONS":
-        response = jsonify({"status": "ok"})
-        response.headers.add("Access-Control-Allow-Origin", "https://iitianshreyash01.github.io/lolf")
-        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
-        response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
-        return response, 200
+
 
 
 # Configure Gemini API
@@ -90,10 +83,17 @@ def health_check():
     }), 200
 
 # AI Doctor endpoint - OPTIMIZED FOR CONCISE RESPONSES
+# AI Doctor endpoint
 @app.route("/api/ai-doctor", methods=["POST", "OPTIONS"])
 def ai_doctor():
+    # ✅ Proper CORS response for preflight
     if request.method == "OPTIONS":
-        return jsonify({"status": "ok"}), 200
+        response = jsonify({"status": "ok"})
+        response.headers.add("Access-Control-Allow-Origin", "https://iitianshreyash01.github.io")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+        response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+        return response, 200
+
 
     try:
         data = request.get_json()
