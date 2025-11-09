@@ -22,7 +22,7 @@ CORS(app, resources={
         "origins": [
             "http://localhost:5500",   # local testing
             "http://127.0.0.1:5500",
-            "https://iitianshreyash01.github.io/lolf/"  # your GitHub Pages domain
+            "https://iitianshreyash01.github.io/lolf"  # your GitHub Pages domain
         ],
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type"]
