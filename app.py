@@ -16,13 +16,19 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
 # Enable CORS for all routes
+# Enable CORS for specific frontend origins (GitHub Pages + localhost)
 CORS(app, resources={
     r"/*": {
-        "origins": "*",
+        "origins": [
+            "http://localhost:5500",   # local testing
+            "http://127.0.0.1:5500",
+            "https://iitianshreyash01.github.io/lolf/"  # your GitHub Pages domain
+        ],
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type"]
     }
 })
+
 
 # Configure Gemini API
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
